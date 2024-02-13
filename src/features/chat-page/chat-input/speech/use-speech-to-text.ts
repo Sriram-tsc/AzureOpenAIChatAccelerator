@@ -30,22 +30,26 @@ class SpeechToText {
       token.token,
       token.region
     );
-
+    // Test code change to see if the source language recognition is working fine
+    // the language code has been hard-coded now. This has to be made dynamic depending on the UI requirements of the customer
+    // Can be read from the app settings if there is only one language of preference 
+    speechConfig.speechRecognitionLanguage = "hi-IN";
     const audioConfig = AudioConfig.fromDefaultMicrophoneInput();
 
-    const autoDetectSourceLanguageConfig =
+    /* const autoDetectSourceLanguageConfig =
       AutoDetectSourceLanguageConfig.fromLanguages([
         "en-US",
         "zh-CN",
         "it-IT",
         "pt-BR",
-      ]);
+      ]); */
 
-    const recognizer = SpeechRecognizer.FromConfig(
+    const recognizer = new SpeechRecognizer(speechConfig, audioConfig);
+    /* const recognizer = SpeechRecognizer.FromConfig(
       speechConfig,
       autoDetectSourceLanguageConfig,
       audioConfig
-    );
+    ); */
 
     speechRecognizer = recognizer;
 
