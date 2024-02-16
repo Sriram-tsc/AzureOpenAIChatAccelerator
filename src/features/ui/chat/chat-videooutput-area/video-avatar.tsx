@@ -292,7 +292,7 @@ class SyntheticVideoService {
     private stopAllStreams() {
         if (videoElement.srcObject) {
             console.log('stopping video streams');
-            videoElement.srcObject.getTracks().forEach((track) => track.stop());
+            //videoElement.srcObject.getTracks().forEach((track) => track.stop());
             videoElement.srcObject = null;
         }
     }
