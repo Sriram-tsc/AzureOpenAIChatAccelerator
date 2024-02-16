@@ -33,7 +33,8 @@ class SpeechToText {
     // Test code change to see if the source language recognition is working fine
     // the language code has been hard-coded now. This has to be made dynamic depending on the UI requirements of the customer
     // Can be read from the app settings if there is only one language of preference 
-    speechConfig.speechRecognitionLanguage = "hi-IN";
+    speechConfig.speechRecognitionLanguage = "en-US";
+    //"hi-IN";
     const audioConfig = AudioConfig.fromDefaultMicrophoneInput();
 
     /* const autoDetectSourceLanguageConfig =

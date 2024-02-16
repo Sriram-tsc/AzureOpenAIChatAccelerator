@@ -40,7 +40,7 @@ class TextToSpeech {
     );
     
     speechConfig.speechSynthesisLanguage = "en-US"; 
-    speechConfig.speechSynthesisVoiceName= "hi-IN-MadhurNeural";
+    //speechConfig.speechSynthesisVoiceName= "hi-IN-MadhurNeural";
     player = new SpeakerAudioDestination();
 
     var audioConfig = AudioConfig.fromSpeakerOutput(player);

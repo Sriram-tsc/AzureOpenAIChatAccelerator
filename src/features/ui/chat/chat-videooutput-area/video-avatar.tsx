@@ -224,10 +224,16 @@ class SyntheticVideoService {
                         if (videoIsPlaying) {
                            console.log("streaming");
                             const remoteStream = event.streams[0];
-                            this.setVideoElement(remoteStream);
+                            //this.setVideoElement(remoteStream);
+                            videoElement.srcObject = remoteStream;
+                            videoElement.loop = false;
                         } else {
-                            console.log("onVideoStatusChange: video not playing")
-                            this.playIdleVideo();
+                            console.log("onVideoStatusChange: video not playing");
+                            videoElement.src = DID_API_SERVICE == 'clips' ? 
+                                'https://d-id-public-bucket.s3.amazonaws.com/rian_idle.mp4' :
+                                 'https://d-id-public-bucket.s3.amazonaws.com/or_idle.mp4';
+                            videoElement.loop = true;
+                            //this.playIdleVideo();
                         }
                     }
                     lastBytesReceived = report.bytesReceived;
