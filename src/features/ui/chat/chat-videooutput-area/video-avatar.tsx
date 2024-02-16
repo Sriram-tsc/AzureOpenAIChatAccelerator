@@ -159,7 +159,7 @@ class SyntheticVideoService {
         //iceGatheringStatusLabel.className = 'iceGatheringState-' + peerConnection.iceGatheringState;
     }
 
-    private onIceCandidate(event) {
+    private onIceCandidate(event: any) {
         console.log('onIceCandidate', event);
         if (event.candidate) {
             const { candidate, sdpMid, sdpMLineIndex } = event.candidate;
@@ -198,7 +198,7 @@ class SyntheticVideoService {
         //signalingStatusLabel.className = 'signalingState-' + peerConnection.signalingState;
     }    
 
-    private onTrack(event) {
+    private onTrack(event: any) {
         /**
          * The following code is designed to provide information about wether currently there is data
          * that's being streamed - It does so by periodically looking for changes in total stream data size
@@ -251,7 +251,7 @@ class SyntheticVideoService {
         //streamingStatusLabel.className = 'streamingState-' + status;
     }
 
-    private async createPeerConnection(offer, iceServers: any) {
+    private async createPeerConnection(offer: any, iceServers: any) {
         if (!peerConnection) {
             console.log("createPeerConnection method: iceServers:" + JSON.stringify(iceServers));
             peerConnection = new PeerConnection({ iceServers });
@@ -316,8 +316,8 @@ class SyntheticVideoService {
     }
 
 
-
-    private async fetchWithRetries(url: string | URL | Request, options, retries = 1) {
+    //: Promise<any>
+    private async fetchWithRetries(url: string | URL | Request, options: any, retries = 1) {
         console.log(" fetch called with url:" + url + " options:" + options)
         try {
             return await fetch(url, options);
