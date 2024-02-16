@@ -1,6 +1,6 @@
 import { log } from "console";
 import { proxy, useSnapshot } from "valtio";
-import {RTCPeerConnection} from "rtcpeerconnection";
+import PeerConnection from "rtcpeerconnection";
 
 /* const RTCPeerConnection = (
     window.RTCPeerConnection
@@ -244,7 +244,7 @@ class SyntheticVideoService {
     private async createPeerConnection(offer, iceServers: any) {
         if (!peerConnection) {
             console.log("createPeerConnection method: iceServers:" + JSON.stringify(iceServers));
-            peerConnection = new RTCPeerConnection({ iceServers });
+            peerConnection = new PeerConnection({iceServers});
             //RTCPeerConnection({ iceServers });
             peerConnection.addEventListener('icegatheringstatechange', this.onIceGatheringStateChange, true);
             peerConnection.addEventListener('icecandidate', this.onIceCandidate, true);

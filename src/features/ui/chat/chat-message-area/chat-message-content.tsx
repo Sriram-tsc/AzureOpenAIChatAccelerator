@@ -12,9 +12,17 @@ const ChatMessageContentArea: ForwardRefRenderFunction<
 > = (props, ref) => {
 
   useEffect(() => {
-  console.log("chat-message-content use-effect");
-   const videoElement = document.getElementById('video-element') as HTMLVideoElement
-    RenderAvatarVideo.initializePageElements(videoElement);
+    console.log("useEffect in the Chat-content-area file");
+    const funcVideo = async () =>{
+      console.log("chat-message-content use-effect");
+      const videoElement = document.getElementById('video-element') as HTMLVideoElement
+      RenderAvatarVideo.initializePageElements(videoElement);
+      await RenderAvatarVideo.establishConnection();
+    } 
+    funcVideo().
+      then(()=> console.log("completion of the promise")).
+      catch((exception)=> console.log("catch block: exception:"+ exception));
+
   }, []);
 
 

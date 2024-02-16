@@ -23,7 +23,7 @@ import {
   ChatDocumentModel,
   ChatThreadModel,
 } from "./models";
-import { RenderAvatarVideo } from "@/features/ui/chat/chat-videooutput-area/video-avatar"; 
+//import { RenderAvatarVideo } from "@/features/ui/chat/chat-videooutput-area/video-avatar"; 
 export const FindAllChatThreadForCurrentUser = async (): Promise<
   ServerActionResponse<Array<ChatThreadModel>>
 > => {
@@ -295,7 +295,7 @@ export const CreateChatThread = async (): Promise<
       modelToSave
     );
     console.log("Create chat-thread method called");
-    await RenderAvatarVideo.establishConnection();
+    //await RenderAvatarVideo.establishConnection();
     if (resource) {
       return {
         status: "OK",

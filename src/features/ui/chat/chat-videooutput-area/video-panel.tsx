@@ -1,10 +1,12 @@
+import staticAvatarImage  from './or-roman.jpg'
+
 export const VideoPanel = () => {
   return (
     <>
       <div id="content">
         <div id="video-wrapper">
           <div>
-            <video id="video-element" src="or-roman.jpg" width="400" height="400" autoPlay></video>
+            <video id="video-element" src={staticAvatarImage} width="400" height="400" autoPlay></video>
           </div>
         </div>
         <br />
