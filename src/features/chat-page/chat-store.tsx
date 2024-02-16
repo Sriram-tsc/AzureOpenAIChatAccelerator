@@ -23,6 +23,8 @@ import {
   ChatMessageModel,
   ChatThreadModel,
 } from "./chat-services/models";
+import { RenderAvatarVideo } from "@/features/ui/chat/chat-videooutput-area/video-avatar"; 
+
 let abortController: AbortController = new AbortController();
 
 type chatStatus = "idle" | "loading" | "file upload";
@@ -268,8 +270,9 @@ class ChatState {
     }
   }
 
-  private completed(message: string) {
-    textToSpeechStore.speak(message);
+  private async completed(message: string) {
+    //textToSpeechStore.speak(message);
+    await RenderAvatarVideo.startVideoStream(message);
   }
 
   public async submitChat(e: FormEvent<HTMLFormElement>) {
