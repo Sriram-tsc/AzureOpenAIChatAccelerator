@@ -19,7 +19,7 @@ let DID_API_KEY: string;
 let DID_API_SERVICE: string;
 let DID_API_URL: string;
 let videoElement: HTMLVideoElement;
-let PeerConnection: RTCPeerConnection;
+let PeerConnection: any;
 /*const RTCPeerConnection = (
     window.RTCPeerConnection
 ).bind(window);*/
@@ -59,7 +59,7 @@ class SyntheticVideoService {
     }
 
     //const connectButton = document.getElementById('connect-button');
-    public async establishConnection(_pc: RTCPeerConnection) {
+    public async establishConnection(_pc : any) {
         PeerConnection = _pc;
         console.log("establish server connection");
         if (peerConnection && peerConnection.connectionState === 'connected') {
