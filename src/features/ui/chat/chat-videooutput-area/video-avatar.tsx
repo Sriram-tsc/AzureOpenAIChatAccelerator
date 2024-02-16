@@ -317,7 +317,7 @@ class SyntheticVideoService {
 
 
     //: Promise<any>
-    private async fetchWithRetries(url: string | URL | Request, options: any, retries = 1) {
+    private async fetchWithRetries(url: string | URL | Request, options: any, retries = 1): Promise<any> {
         console.log(" fetch called with url:" + url + " options:" + options)
         try {
             return await fetch(url, options);
