@@ -1,6 +1,6 @@
 import { log } from "console";
 import { proxy, useSnapshot } from "valtio";
-import PeerConnection from "rtcpeerconnection";
+//import PeerConnection from "rtcpeerconnection";
 
 /* const RTCPeerConnection = (
     window.RTCPeerConnection
@@ -15,10 +15,11 @@ let videoIsPlaying: boolean;
 let lastBytesReceived: number;
 let maxRetryCount: number = 3;
 let maxDelaySec: number = 4;
-let DID_API_KEY : string
-let DID_API_SERVICE : string
-let DID_API_URL : string
-let videoElement : HTMLVideoElement
+let DID_API_KEY: string;
+let DID_API_SERVICE: string;
+let DID_API_URL: string;
+let videoElement: HTMLVideoElement;
+let PeerConnection: RTCPeerConnection;
 /*const RTCPeerConnection = (
     window.RTCPeerConnection
 ).bind(window);*/
@@ -41,7 +42,7 @@ class SyntheticVideoService {
         //this.establishConnection();
     }
 
-    public initializePageElements(_videoElement : HTMLVideoElement){
+    public initializePageElements(_videoElement: HTMLVideoElement) {
         videoElement = _videoElement;
     }
 
@@ -58,7 +59,8 @@ class SyntheticVideoService {
     }
 
     //const connectButton = document.getElementById('connect-button');
-    public async establishConnection() {
+    public async establishConnection(_pc: RTCPeerConnection) {
+        PeerConnection = _pc;
         console.log("establish server connection");
         if (peerConnection && peerConnection.connectionState === 'connected') {
             return;
@@ -66,7 +68,7 @@ class SyntheticVideoService {
 
         this.stopAllStreams();
         this.closePC();
-        console.log("calling streams api:"+`${DID_API_URL}/${DID_API_SERVICE}/streams`);
+        console.log("calling streams api:" + `${DID_API_URL}/${DID_API_SERVICE}/streams`);
         const sessionResponse = await this.fetchWithRetries(`${DID_API_URL}/${DID_API_SERVICE}/streams`, {
             method: 'POST',
             headers: {
@@ -194,22 +196,7 @@ class SyntheticVideoService {
     private onSignalingStateChange() {
         console.log("onSignalingStateChange:" + peerConnection.signalingState);
         //signalingStatusLabel.className = 'signalingState-' + peerConnection.signalingState;
-    }
-
-    private onVideoStatusChange(videoIsPlaying: boolean, stream: any) {
-        let status;
-        if (videoIsPlaying) {
-            status = 'streaming';
-            const remoteStream = stream;
-            this.setVideoElement(remoteStream);
-        } else {
-            status = 'empty';
-            console.log("onVideoStatusChange: video not playing")
-            this.playIdleVideo();
-        }
-        console.log("onVideoStatusChange:" + status);
-        //streamingStatusLabel.className = 'streamingState-' + status;
-    }
+    }    
 
     private onTrack(event) {
         /**
@@ -233,7 +220,15 @@ class SyntheticVideoService {
                     if (videoStatusChanged) {
                         videoIsPlaying = report.bytesReceived > lastBytesReceived;
                         console.log(" calling the event handler onVideoStatusChange from the OnTrack event handler");
-                        this.onVideoStatusChange(videoIsPlaying, event.streams[0]);
+                        //this.onVideoStatusChange(videoIsPlaying, event.streams[0]);
+                        if (videoIsPlaying) {
+                           console.log("streaming");
+                            const remoteStream = event.streams[0];
+                            this.setVideoElement(remoteStream);
+                        } else {
+                            console.log("onVideoStatusChange: video not playing")
+                            this.playIdleVideo();
+                        }
                     }
                     lastBytesReceived = report.bytesReceived;
                 }
@@ -241,11 +236,25 @@ class SyntheticVideoService {
         }, 500);
     }
 
+    private onVideoStatusChange(videoIsPlaying: boolean, stream: any) {
+        let status;
+        if (videoIsPlaying) {
+            status = 'streaming';
+            const remoteStream = stream;
+            this.setVideoElement(remoteStream);
+        } else {
+            status = 'empty';
+            console.log("onVideoStatusChange: video not playing")
+            this.playIdleVideo();
+        }
+        console.log("onVideoStatusChange:" + status);
+        //streamingStatusLabel.className = 'streamingState-' + status;
+    }
+
     private async createPeerConnection(offer, iceServers: any) {
         if (!peerConnection) {
             console.log("createPeerConnection method: iceServers:" + JSON.stringify(iceServers));
-            peerConnection = new PeerConnection({iceServers});
-            //RTCPeerConnection({ iceServers });
+            peerConnection = new PeerConnection({ iceServers });
             peerConnection.addEventListener('icegatheringstatechange', this.onIceGatheringStateChange, true);
             peerConnection.addEventListener('icecandidate', this.onIceCandidate, true);
             peerConnection.addEventListener('iceconnectionstatechange', this.onIceConnectionStateChange, true);

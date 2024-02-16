@@ -272,6 +272,7 @@ class ChatState {
 
   private async completed(message: string) {
     //textToSpeechStore.speak(message);
+    console.log("chat-store:completed");
     await RenderAvatarVideo.startVideoStream(message);
   }
 

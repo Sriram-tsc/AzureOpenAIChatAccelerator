@@ -16,8 +16,11 @@ const ChatMessageContentArea: ForwardRefRenderFunction<
     const funcVideo = async () =>{
       console.log("chat-message-content use-effect");
       const videoElement = document.getElementById('video-element') as HTMLVideoElement
+      const RTCPeerConnection = (
+        window.RTCPeerConnection
+      ).bind(window);
       RenderAvatarVideo.initializePageElements(videoElement);
-      await RenderAvatarVideo.establishConnection();
+      await RenderAvatarVideo.establishConnection(RTCPeerConnection);
     } 
     funcVideo().
       then(()=> console.log("completion of the promise")).
