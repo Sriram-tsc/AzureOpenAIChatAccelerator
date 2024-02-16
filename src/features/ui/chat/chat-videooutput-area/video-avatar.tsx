@@ -230,8 +230,7 @@ class SyntheticVideoService {
                         } else {
                             console.log("onVideoStatusChange: video not playing");
                             videoElement.src = DID_API_SERVICE == 'clips' ? 
-                                'https://d-id-public-bucket.s3.amazonaws.com/rian_idle.mp4' :
-                                 'https://d-id-public-bucket.s3.amazonaws.com/or_idle.mp4';
+                                'rian_idle.mp4' :'or_idle.mp4';
                             videoElement.loop = true;
                             //this.playIdleVideo();
                         }
