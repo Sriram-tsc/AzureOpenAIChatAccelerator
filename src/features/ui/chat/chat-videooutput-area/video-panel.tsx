@@ -1,4 +1,3 @@
-import staticAvatarImage  from './or-roman.jpg'
 
 export const VideoPanel = () => {
   return (
