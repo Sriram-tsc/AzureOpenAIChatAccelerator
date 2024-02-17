@@ -125,7 +125,7 @@ class SyntheticVideoService {
                         type: 'text',
                         "provider": {
                             "type": "microsoft",
-                            "voice_id": "en-US-JennyNeural"
+                            "voice_id": "en-US-AndrewNeural"
                         },
                         input: textToSpeak
                     },
@@ -230,7 +230,7 @@ class SyntheticVideoService {
                         } else {
                             console.log("onVideoStatusChange: video not playing");
                             videoElement.src = DID_API_SERVICE == 'clips' ? 
-                                './rian_idle.mp4' :'./or_idle.mp4';
+                                'rian_idle.mp4' :'.or_idle.mp4';
                             videoElement.loop = true;
                             //this.playIdleVideo();
                         }
